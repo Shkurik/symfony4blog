@@ -70,7 +70,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/article/update{article}", name="update_article")
+     * @Route("/article/update/{article}", name="update_article")
      * @param Request $request
      * @param Article $article
      * @return RedirectResponse|Response
@@ -103,7 +103,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/article/delete{article}", name="article_delete")
+     * @Route("/article/delete/{article}", name="article_delete")
      * @param Article $article
      * @return RedirectResponse
      */
