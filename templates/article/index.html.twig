@@ -3,18 +3,25 @@
 {% block title %}Hello ArticleController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/shkurik/www/symfony4blog.loc/src/Controller/ArticleController.php'|file_link(0) }}">src/Controller/ArticleController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/shkurik/www/symfony4blog.loc/templates/article/index.html.twig'|file_link(0) }}">templates/article/index.html.twig</a></code></li>
-    </ul>
+<div class="container">
+    <h2>List of Articles</h2>
+    <a href="{{ path('create_article') }}">Create Article</a>
+    {% for article in articles %}
+        <div class="card bg-primary text-white">
+            <div class="card-body">
+                <div>Title: {{ article.title }}</div>
+                <br>
+                <div>Author: {{ article.author }}</div>
+                <br>
+                <div>Content: <br> {{ article.content }}</div>
+                <div class="text-white bg-white">
+                    <a href="{{ path('single_article', {'article': article.id}) }}">Watch</a>
+                    <a href="{{ path('update_article', {'article': article.id}) }}">Edit</a>
+                    <a href="{{ path('article_delete', {'article': article.id}) }}">Delete</a>
+                </div>
+            </div>
+        </div>
+    {%  endfor %}
+     
 </div>
 {% endblock %}
