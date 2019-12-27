@@ -22,7 +22,6 @@ class ArticleController extends AbstractController
 
         $articles = $em->getRepository(Article::class)->findAll();
         return $this->render('article/index.html.twig', [
-            'controller_name' => 'ArticleController',
             'articles' => $articles
         ]);
     }
@@ -94,7 +93,9 @@ class ArticleController extends AbstractController
             $article->setUpdatedAt(new \DateTime('now'));
             $em = $this->getDoctrine()->getManager();
             $em->flush();
-            return $this->redirectToRoute('article');
+            return $this->redirectToRoute('single_article', [
+                'article' => $article->getId(),
+            ]);
         }
 
         return $this->render('article/form.html.twig', [
