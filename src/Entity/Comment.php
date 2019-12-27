@@ -36,6 +36,12 @@ class Comment
      */
     private $updated_at;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Article", inversedBy="comments")
+     * @ORM\JoinColumn(name="article_id", referencedColumnName="id")
+     */
+    private $article;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -87,5 +93,28 @@ class Comment
         $this->updated_at = $updated_at;
 
         return $this;
+    }
+
+    /**
+     * Set article
+     *
+     * @param Article $article
+     * @return Comment
+     */
+    public function setArticle(Article $article = null)
+    {
+        $this->article = $article;
+
+        return $this;
+    }
+
+    /**
+     * Get article
+     *
+     * @return Article
+     */
+    public function getArticle()
+    {
+        return $this->article;
     }
 }

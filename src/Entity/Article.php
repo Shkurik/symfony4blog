@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -40,6 +41,20 @@ class Article
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updated_at;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="article", cascade="remove")
+     * @ORM\OrderBy({"id" = "DESC"})
+     */
+    private $comments;
+
+    /**
+     * Article constructor
+     */
+    private function _construct()
+    {
+        $this->comments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -104,5 +119,35 @@ class Article
         $this->updated_at = $updated_at;
 
         return $this;
+    }
+
+    /**
+     * Add comments
+     * @param Comment $comment
+     * @return $this
+     */
+    public function addComment(Comment $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     * @param Comment $comment
+     */
+    public function removeComment(Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     * @return mixed
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }
